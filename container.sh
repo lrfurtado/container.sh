@@ -43,6 +43,11 @@ usage() {
     echo
 }
 
+enable_cpu_controller() {
+    #TODO(lrfurtado): add support for enabling the CPU controller
+    #echo "+cpuset +cpuacct" >/sys/fs/cgroup/cgroup.subtree_control
+}
+
 extract_image() {
     [ ! -d /tmp/debian_cache ] && debootstrap stretch /tmp/debian_cache http://deb.debian.org/debian
     tmpdir=$(mktemp -d)
@@ -80,6 +85,7 @@ main() {
         esac
     done
     shift $((OPTIND - 1))
+    enable_cpu_controller
     extract_image
     create_container
 }
