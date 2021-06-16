@@ -45,7 +45,8 @@ usage() {
 
 enable_cpu_controller() {
     #TODO(lrfurtado): add support for enabling the CPU controller
-    #echo "+cpuset +cpuacct" >/sys/fs/cgroup/cgroup.subtree_control
+    #if we get EINVAL use sudo ./trace -I "linux/sched.h" 'r::sched_rt_can_attach(void *a1, struct task_struct  *a2) "%s %d", a2->comm, retval')'
+    echo "+cpuset +cpu +memory" >/sys/fs/cgroup/cgroup.subtree_control
 }
 
 extract_image() {
